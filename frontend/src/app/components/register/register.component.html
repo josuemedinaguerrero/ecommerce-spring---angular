@@ -1,0 +1,76 @@
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 300px;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  input[type="submit"] {
+    background-color: #4caf50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+  }
+  input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+</style>
+
+<form [formGroup]="validateForm" style="margin: auto">
+  <h2>Registro de Usuario</h2>
+  <div>
+    <input type="text" placeholder="Username" formControlName="name" />
+    <div [hidden]="validateForm.get('name')?.valid">Username is required</div>
+  </div>
+
+  <div>
+    <input type="email" placeholder="E-mail" formControlName="email" />
+    <div [hidden]="validateForm.get('email')?.valid">Email is required</div>
+  </div>
+
+  <div>
+    <input type="password" placeholder="Password" formControlName="password" />
+    <div [hidden]="validateForm.get('password')?.valid">
+      Password is required
+    </div>
+  </div>
+
+  <div>
+    <input
+      type="password"
+      placeholder="Confirm Password"
+      formControlName="confirmPassword"
+    />
+    <div [hidden]="validateForm.get('confirmPassword')?.valid">
+      Please confirm your password!
+    </div>
+  </div>
+  <button style="margin-top: 30px" (click)="register()">Regiter</button>
+  Or
+  <a routerLink="/login">Login now!</a>
+</form>
