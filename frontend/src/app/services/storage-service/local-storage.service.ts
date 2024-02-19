@@ -11,17 +11,56 @@ export class LocalStorageService {
   constructor() {}
 
   saveUserId(userId: any) {
-    window.localStorage.removeItem(USERID);
-    window.localStorage.setItem(USERID, userId);
+    localStorage.removeItem(USERID);
+    localStorage.setItem(USERID, userId);
   }
 
   saveUserRole(role: any) {
-    window.localStorage.removeItem(USERROLE);
-    window.localStorage.setItem(USERROLE, role);
+    localStorage.removeItem(USERROLE);
+    localStorage.setItem(USERROLE, role);
   }
 
   saveToken(token: any) {
-    window.localStorage.removeItem(TOKEN);
-    window.localStorage.setItem(TOKEN, token);
+    localStorage.removeItem(TOKEN);
+    localStorage.setItem(TOKEN, token);
+  }
+
+  static getToken(): string | null {
+    return localStorage.getItem(TOKEN);
+  }
+
+  static hasToken(): boolean {
+    return !(this.getToken() === null);
+  }
+
+  static isUserLoggedIn(): boolean {
+    if (this.getToken() === null) return false;
+
+    const role: string = this.getUserRole();
+
+    return role === 'USER';
+  }
+
+  static isAdminLoggedIn(): boolean {
+    if (this.getToken() === null) return false;
+
+    const role: string = this.getUserRole();
+    return role === 'ADMIN';
+  }
+
+  static getUserRole(): string {
+    const user = localStorage.getItem(USERROLE);
+
+    if (user === null) {
+      return '';
+    }
+
+    return user;
+  }
+
+  static signOut() {
+    localStorage.removeItem(TOKEN);
+    localStorage.removeItem(USERID);
+    localStorage.removeItem(USERROLE);
   }
 }

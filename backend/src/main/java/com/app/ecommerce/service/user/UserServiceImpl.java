@@ -10,6 +10,8 @@ import com.app.ecommerce.entities.User;
 import com.app.ecommerce.enums.UserRole;
 import com.app.ecommerce.repository.UserRepository;
 
+import jakarta.annotation.PostConstruct;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -30,6 +32,20 @@ public class UserServiceImpl implements UserService {
   @Override
   public Boolean hasUserWithEmail(String email) {
     return userRepository.findFirstByEmail(email) != null;
+  }
+
+  @Override
+  @PostConstruct
+  public void createAdminAccount() {
+    User adminAccount = userRepository.findByUserRole(UserRole.ADMIN);
+    if (adminAccount == null) {
+      User user = new User();
+      user.setUserRole(UserRole.ADMIN);
+      user.setEmail("admin@test.com");
+      user.setName("admin");
+      user.setPassword(new BCryptPasswordEncoder().encode("admin"));
+      userRepository.save(user);
+    }
   }
 
 }

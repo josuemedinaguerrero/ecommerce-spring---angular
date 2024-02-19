@@ -21,6 +21,7 @@ export class AuthService {
     return this.http.post(BASIC_URL + 'authenticate', { username, password }, { observe: 'response' }).pipe(
       tap((_) => this.log('User Authentication')),
       map((res: HttpResponse<any>) => {
+        console.log('GUARDANDO');
         this.storageService.saveUserId(res.body.userId);
         this.storageService.saveUserRole(res.body.role);
 

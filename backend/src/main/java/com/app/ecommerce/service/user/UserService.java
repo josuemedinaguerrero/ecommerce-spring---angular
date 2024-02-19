@@ -9,4 +9,6 @@ public interface UserService {
 
   Boolean hasUserWithEmail(String email);
 
+  void createAdminAccount();
+
 }
