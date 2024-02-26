@@ -26,13 +26,11 @@
   }
 </style>
 
-<form [formGroup]="validateForm" style="margin: auto">
-  <h2>Iniciar Sesión</h2>
+<form [formGroup]="catgoryForm" style="margin: auto">
+  <input placeholder="Name" formControlName="name" />
+  <input placeholder="Description" formControlName="description" />
 
-  <input type="email" placeholder="E-mail" formControlName="username" />
-  <input type="password" placeholder="Password" formControlName="password" />
-
-  <button style="margin-top: 30px" (click)="login()">Iniciar Sesión</button>
-  Or
-  <a routerLink="/register">Registrar ahora!</a>
+  <button type="submit" style="margin-top: 30px" (click)="postCategory()">
+    Add
+  </button>
 </form>

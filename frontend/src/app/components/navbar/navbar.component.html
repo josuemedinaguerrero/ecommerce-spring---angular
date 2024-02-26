@@ -26,7 +26,18 @@
   }
 </style>
 
-<div class="navbar">
-  <a routerLink="/register" href="#">Sign up</a>
-  <a routerLink="/login" href="#">Login</a>
+<div class="navbar" *ngIf="!isUserLoggedIn && !isAdminLoggedIn">
+  <a routerLink="/register">Sign up</a>
+  <a routerLink="/login">Login</a>
+</div>
+
+<div class="navbar" *ngIf="isUserLoggedIn">
+  <a routerLink="/user/dashboard">Dashboard</a>
+  <a (click)="logOut()">Logout</a>
+</div>
+
+<div class="navbar" *ngIf="isAdminLoggedIn">
+  <a routerLink="/admin/dashboard">Dashboard</a>
+  <a routerLink="/admin/category">Category</a>
+  <a (click)="logOut()">Logout</a>
 </div>

@@ -10,8 +10,7 @@ import { LocalStorageService } from 'src/app/services/storage-service/local-stor
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  validateForm!: FormGroup;
-  isSpinning = false;
+  validateForm: FormGroup = new FormGroup({});
 
   constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) {}
 
@@ -24,8 +23,7 @@ export class LoginComponent {
 
   login() {
     this.authService.login(this.validateForm.get(['username'])?.value, this.validateForm.get(['password'])?.value).subscribe({
-      next: (res) => {
-        this.isSpinning = false;
+      next: (_) => {
         if (LocalStorageService.isAdminLoggedIn()) {
           this.router.navigateByUrl('/admin/dashboard');
         } else if (LocalStorageService.isUserLoggedIn()) {
@@ -34,7 +32,6 @@ export class LoginComponent {
       },
       error: (error) => {
         console.log({ error });
-        this.isSpinning = false;
       },
     });
   }
